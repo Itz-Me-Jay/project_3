@@ -1,0 +1,49 @@
+step1:
+video ref : https://www.youtube.com/watch?v=g-v9AsubOqY&ab_channel=Mr.DevOps
+
+create a shared library
+push to github
+configure github in jenkins 
+jenkins>manage jenkins >configure>Global Pipeline libraries> name of library> profile file location branch (main)
+Retrival methods > modern > provide url of github > credentials (not required for public) > save
+
+step2:
+
+Need to variablize the script
+
+1. need to write a groove scripts
+ex : gitcheckout.groovy
+
+def call(Map stageParams) {
+ 
+    checkout([
+        $class: 'GitSCM',
+        branches: [[name:  stageParams.branch ]],
+        userRemoteConfigs: [[ url: stageParams.url ]]
+    ])
+  }
+
+variable "Map" is calling gitcheout.groovy script
+in these branch and github url details fetching.
+
+2. need to import name of library in jenkinsfile
+
+3. for Quality Score 
+ " SonarQube provide result to jenkins - sonarqube say ur code is "OK"
+ for that we need to webhook
+
+SonarQube>Adminstration>configure>webhook
+
+name:url(jenkins)/sonarqube-webhook/
+create
+
+4. if static code pass then we build maven
+
+
+// Project 3 steps
+
+Project3 > git checkout > Jenkins Shared library concept > Maven Test > maven verify > sonarqube statiCodeAnalyis Test  > SonarQube Quality Code Test analyis > 
+Maven Build > Create a docker file > docker image > trivy (docker images tester tool ) 
+
+Steps : 
+1. 
