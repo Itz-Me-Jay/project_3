@@ -1,5 +1,5 @@
-@Library("name of the library mentioned in configure system in jenkins")
-pipeline {
+@Library("")
+pipeline{
     agent any
 // we are deploy application  using some parameters
     parameters{
