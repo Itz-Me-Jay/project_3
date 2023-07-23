@@ -1,4 +1,4 @@
-@Library("name of the library mentioned in configure system in jenkins")
+@Library("jenkins-shared-library")
 pipeline{
     agent any
 // we are deploy application  using some parameters
@@ -16,9 +16,9 @@ pipeline{
                 script{
                     //function name
                     gitcheckout{
-                        //variables 
+                        //variables : branch and url
                         branch: "main"
-                        url: ""
+                        url: "https://github.com/Itz-Me-Jay/project_3.git"
                     }
                 }
             }
