@@ -48,7 +48,7 @@ pipeline{
          when { expression {  params.action == 'create' } }
             steps{
                script{
-                   
+                   // name of the credentials ID is sonartoken-api ( which we created in credentials )
                    def SonarQubecredentialsId = 'sonartoken-api'
                    statiCodeAnalysis(SonarQubecredentialsId)
                }
