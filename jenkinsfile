@@ -1,58 +1,48 @@
-@Library("jenkins-shared-library")
+@Library('jenkins-shared-library') _
+
 pipeline{
+
     agent any
-// we are deploy application  using some parameters
+
     parameters{
-        choice(name: 'action' , choices: 'create\ndelete' , description: 'choose create/Destory')
+
+        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
+        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
+        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'vikashashoke')
     }
-
     stages{
-    // how will make our stages condition using condition "choice", we use "when" block    
-    // basically we need this stages only when we 'create' rather 'destory'     
-        stage('gitcheckout'){
-            when { expression { param.action == 'create'} }
-
+         
+        stage('Git Checkout'){
+                    when { expression {  params.action == 'create' } }
             steps{
-                script{
-                    //function name
-                    gitcheckout{
-                        //variables : branch and url
-                        branch: "main"
-                        url: "https://github.com/Itz-Me-Jay/project_3.git"
-                    }
-                }
-            }
-        }
-        stage('unit_test_maven'){
-            
-            when { expression { param.action == 'create'} }
-
-            steps{
-                script{
-                    mvntest()  
-                }
-            }
-        }
-        stage('mvnintegrationTest'){
-
-            when { expression { param.action == 'create'} }
-            
-            steps{
-                script{
-                    mvnintegrationTest()  
-                }
-            }
-        }
-        stage('statiCodeAnalyis: sonarQube'){
-        
-            when { expression { param.action == 'create'} }
-            
-            steps{
-                script{
-                    statiCodeAnalyis()  
-                }
+            gitCheckout(
+                branch: "main",
+                url: "https://github.com/Itz-Me-Jay/project_3.git"
+            )
             }
         }
 
+        stage('Unit Test maven'){
+         
+         when { expression {  params.action == 'create' } }
+
+            steps{
+               script{
+                   
+                   mvnTest()
+               }
+            }
+        }
+
+        stage('Integration Test maven'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   mvnIntegrationTest()
+               }
+            }
+        }
     }
 }
