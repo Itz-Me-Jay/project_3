@@ -1,5 +1,5 @@
 # base image
-FROM open-jdk:11-jdk-alpine
+FROM openjdk:8-jdk-alpine
 # create a directior for application
 WORKDIR /app
 # Copy Tar file
