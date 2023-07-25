@@ -22,7 +22,7 @@ pipeline{
             )
             }
         }
-
+        /* this helps make multiple line as a comment , so that it will not execute
         stage('Unit Test maven'){
          
          when { expression {  params.action == 'create' } }
@@ -44,7 +44,6 @@ pipeline{
                }
             }
         }
-        /*
         stage('Static code analysis: Sonarqube'){
          when { expression {  params.action == 'create' } }
             steps{
